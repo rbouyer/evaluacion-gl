@@ -3,16 +3,36 @@
  */
 package controller;
 
+import java.net.URI;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import model.User;
+import service.LoginService;
 
 
 @RestController("/")
 public class SecurityController {
+	
+	@Autowired LoginService loginSvc;
 
-	   @GetMapping
-	    public String helloGradle() {
-	        return "Hello GlobalLogic!";
-	    }
+	@GetMapping("/")
+	public String hello() {
+		return "Hello GlobalLogic!";
+	}   
+	
+	   
+	@PostMapping("/sign-up")
+	public ResponseEntity<User> signUp(@RequestBody User newUser) {
+		User existUser = null;
+		URI uri = null;
+	   
+		return ResponseEntity.created(uri).body(existUser);
+	}
 
 }

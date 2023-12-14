@@ -3,8 +3,35 @@ package model;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class User {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "phones")
+public class User {
+	
+	public User() {
+		super();
+	}
+
+	public User(String name, String email, String password, List<Phone> phones, LocalDateTime created, Boolean isActive) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.phones = phones;
+		this.created = created;
+		this.isActive = isActive;
+	}
+
+
+
+	@Id
+	@GeneratedValue
 	private String id;
 
 	private String name;
@@ -13,14 +40,17 @@ public class User {
 	
 	private String password;
 	
+	@OneToMany(mappedBy="users")
 	private List<Phone> phones;
 	
 	private String token;
 	
 	private LocalDateTime created;
 	
+	@Column(name = "last_login")
 	private LocalDateTime lastLogin;
 	
+	@Column(name = "is_active")
 	private Boolean isActive;
 
 	public String getId() {

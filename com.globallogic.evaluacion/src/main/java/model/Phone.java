@@ -1,8 +1,34 @@
 package model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import java.util.UUID;
+
+@Entity
+@Table(name = "phones")
 public class Phone {
 
-		private String id;
+		public Phone() {
+		super();
+		}
+		
+		public Phone(Long number, Integer citycode, String contrycode, User user) {
+			super();
+			this.number = number;
+			this.citycode = citycode;
+			this.contrycode = contrycode;
+			this.user = user;
+		}
+
+
+		@Id
+		@GeneratedValue
+		private UUID id;
 		
 		private Long number;
 		
@@ -10,12 +36,14 @@ public class Phone {
 		
 		private String contrycode;
 		
+		@JoinColumn(name="user_id", referencedColumnName="id")
+		@ManyToOne()
+		private User user;
 		
-		
-		public String getId() {
+		public UUID getId() {
 			return id;
 		}
-		public void setId(String id) {
+		public void setId(UUID id) {
 			this.id = id;
 		}
 		public Long getNumber() {
@@ -35,6 +63,12 @@ public class Phone {
 		}
 		public void setContrycode(String contrycode) {
 			this.contrycode = contrycode;
+		}
+		public User getUser() {
+			return user;
+		}
+		public void setUser(User user) {
+			this.user = user;
 		}
 		
 		
