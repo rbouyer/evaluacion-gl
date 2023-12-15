@@ -22,7 +22,7 @@ Endpoints
 	2. El endpoint /login debe ser un GET a url http://localhost:8082/login?token=<token>, donde en el query parameter token se debe asociar el token obtenido en response de paso anterior (signup)
 
 Consideraciones Generales
-	1. La carpeta "diagrams" contiene la documentación requerida para el proyecto
+	1. La sub-carpeta "com.globallogic.evaluacion/diagrams" contiene la documentación requerida para el proyecto
 	2. Se utiliza tipo de datos UUID para asignar el id del usuario
 	3. La password se encripta y guarda encriptada en base de datos, en login se desencripta para desplegar contenido original
 	4. En cada llamada al endpoint /login el token se renueva incluyendo este en el response correspondiente
