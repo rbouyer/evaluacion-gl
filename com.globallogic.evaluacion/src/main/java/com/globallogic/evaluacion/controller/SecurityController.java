@@ -3,7 +3,6 @@
  */
 package com.globallogic.evaluacion.controller;
 
-import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +62,7 @@ public class SecurityController {
 
 		User user;
 		try {
-			user = loginSvc.readUserByToken(token);
+			user = loginSvc.login(token);
 			
 			if(user != null)
 				result = user;

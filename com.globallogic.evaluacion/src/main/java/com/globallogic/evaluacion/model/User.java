@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.globallogic.evaluacion.util.CipherUtil;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -23,7 +25,7 @@ public class User {
 		super();
 		this.name = name;
 		this.email = email;
-		this.password = password;
+		this.password = CipherUtil.encrypt(password);
 		this.phones = phones;
 		this.created = created;
 		this.isActive = isActive;
@@ -79,11 +81,11 @@ public class User {
 	}
 
 	public String getPassword() {
-		return password;
+		return CipherUtil.decrypt(password);
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = CipherUtil.encrypt(password);
 	}
 
 	public List<Phone> getPhones() {

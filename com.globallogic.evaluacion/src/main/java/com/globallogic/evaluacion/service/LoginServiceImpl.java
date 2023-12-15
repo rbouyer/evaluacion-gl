@@ -9,12 +9,21 @@ import org.springframework.stereotype.Service;
 
 import com.globallogic.evaluacion.model.User;
 import com.globallogic.evaluacion.repository.UserRepository;
+import com.globallogic.evaluacion.util.JwtUtil;
+
+import org.springframework.beans.factory.annotation.Value;
 
 
 @Service
 public class LoginServiceImpl implements LoginService {
+	private String secret;
 
 	@Autowired private UserRepository userRepository;
+	
+	@Value("${jwt.secret}")
+	public void setSecret(String secret) {
+		this.secret = secret;
+	}
 
 	public User readUserByEmail(String email) {
 		User user = null;
@@ -40,7 +49,7 @@ public class LoginServiceImpl implements LoginService {
 		newUser.setIsActive(true);
 		newUser.setCreated(LocalDateTime.now());
 		newUser.setLastLogin(LocalDateTime.now());
-		newUser.setToken("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWxpb0B0ZXN0...");
+		newUser.setToken(JwtUtil.generateToken(newUser.getEmail(), secret));
 
 		if(newUser.getPhones() != null && newUser.getPhones().size() > 0) {
 			newUser.getPhones().forEach(p -> {
@@ -54,15 +63,15 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	public User login(String token) {
-		User user = this.readUserByToken(token);
+		User user = this.readUserByToken(token), savedUser = null;
 		
 		if(user != null) {
 			//... el token debe cambiar al ejecutar por lo que se actualizará el token
-			user.setToken("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWxpb0B0ZXN0...");
-			
+			user.setToken(JwtUtil.generateToken(user.getEmail(), secret));
+			savedUser = userRepository.save(user);
 		}
-
-		return userRepository.save(user);
+		
+		return savedUser;
 	}
 
 	/*
