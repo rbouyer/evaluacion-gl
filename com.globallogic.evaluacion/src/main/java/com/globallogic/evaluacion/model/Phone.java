@@ -19,13 +19,13 @@ public class Phone {
 		super();
 		}
 		
-		public Phone(Long number, Integer citycode, String contrycode, User user) {
-			super();
-			this.number = number;
-			this.citycode = citycode;
-			this.contrycode = contrycode;
-			this.user = user;
-		}
+//		public Phone(Long number, Integer citycode, String contrycode, User user) {
+//			super();
+//			this.setNumber(number);
+//			this.setCitycode(citycode);
+//			this.setContrycode(contrycode);
+//			this.setUser(user);
+//		}
 
 
 		@Id

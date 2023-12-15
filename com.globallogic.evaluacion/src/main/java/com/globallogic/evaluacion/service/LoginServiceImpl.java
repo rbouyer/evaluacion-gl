@@ -86,7 +86,7 @@ public class LoginServiceImpl implements LoginService {
 		// Se valida existencia de usuario por email solo si este es valido
 		if(errores.size() == 0) {
 			User exist = readUserByEmail(user.getEmail());
-			if(exist != null) errores.add("Invalid sign-up");
+			if(exist != null) errores.add("Invalid sign-up, user exist");
 		}
 		
 		// Debe tener solo una Mayúscula y solamente dos números (no necesariamente	consecutivos), en combinación de letras minúsculas, largo máximo de 12 y mínimo 8 

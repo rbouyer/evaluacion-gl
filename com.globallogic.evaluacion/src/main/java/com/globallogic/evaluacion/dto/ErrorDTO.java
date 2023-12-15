@@ -55,8 +55,8 @@ class ErrorDetailDTO {
 
 	public ErrorDetailDTO(int codigo, String detail) {
 		super();
-		this.codigo = codigo;
-		this.detail = detail;
+		this.setCodigo(codigo);
+		this.setDetail(detail);
 		this.setTimestamp(LocalDateTime.now());
 	}
 
