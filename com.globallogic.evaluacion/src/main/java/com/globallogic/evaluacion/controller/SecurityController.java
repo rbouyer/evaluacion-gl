@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.globallogic.evaluacion.dto.ErrorDTO;
 import com.globallogic.evaluacion.model.User;
 import com.globallogic.evaluacion.service.LoginService;
 
@@ -32,24 +33,51 @@ public class SecurityController {
 	   
 	@PostMapping("/sign-up")
 	public ResponseEntity<Object> signUp(@RequestBody User newUser) {
-		List<String> errors = loginSvc.validateSignUp(newUser);
-		User createdUser = null;
+		Object result = null;
+		HttpStatus status = HttpStatus.OK;
 		
-		if(errors == null || errors.size() == 0) {
-			createdUser = loginSvc.saveNewUser(newUser);
+		try {
+			List<String> errors = loginSvc.validateSignUp(newUser);
+			User createdUser = null;
 			
+			if(errors == null || errors.size() == 0) {
+				createdUser = loginSvc.saveNewUser(newUser);
+				result = createdUser;
+			} else {
+				status = HttpStatus.BAD_REQUEST;
+				result = new ErrorDTO(status.value(), errors);
+			}
+		} catch (Exception e) {
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result = new ErrorDTO(status.value(), status.getReasonPhrase());
 		}
 	   
-		return ResponseEntity.status(HttpStatus.OK).body(createdUser);
+		return ResponseEntity.status(status).body(result);
 	}
 
 
 	@GetMapping("/login")
 	public ResponseEntity<Object> login(@RequestParam String token) {
-		URI uri = null;
-		User user = loginSvc.readUserByToken(token);
+		Object result = null;
+		HttpStatus status = HttpStatus.OK;
+
+		User user;
+		try {
+			user = loginSvc.readUserByToken(token);
+			
+			if(user != null)
+				result = user;
+			else {
+				status = HttpStatus.BAD_REQUEST;
+				result = new ErrorDTO(status.value(), "Invalid token");
+			}
+			
+		} catch (Exception e) {
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			result = new ErrorDTO(status.value(), status.getReasonPhrase());
+		}
 		
-		return ResponseEntity.status(HttpStatus.OK).body(user);
+		return ResponseEntity.status(status).body(result);
 	}   
 
 }

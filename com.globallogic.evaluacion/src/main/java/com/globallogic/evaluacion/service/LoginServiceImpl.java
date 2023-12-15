@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.globallogic.evaluacion.model.User;
-import com.globallogic.evaluacion.repository.PhoneRepository;
 import com.globallogic.evaluacion.repository.UserRepository;
 
 
@@ -16,7 +15,6 @@ import com.globallogic.evaluacion.repository.UserRepository;
 public class LoginServiceImpl implements LoginService {
 
 	@Autowired private UserRepository userRepository;
-	@Autowired private PhoneRepository phoneRepository;
 
 	public User readUserByEmail(String email) {
 		User user = null;
