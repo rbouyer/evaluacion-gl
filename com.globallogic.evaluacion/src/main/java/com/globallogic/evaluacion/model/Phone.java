@@ -1,4 +1,4 @@
-package model;
+package com.globallogic.evaluacion.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

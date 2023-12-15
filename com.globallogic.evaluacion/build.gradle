@@ -16,13 +16,10 @@ plugins {
 }
 
 repositories {
-    // Use jcenter for resolving dependencies.
-    // You can declare any Maven/Ivy/file repository here.
-    jcenter()
+	mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-dependencies:2.5.14.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
@@ -38,12 +35,4 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
-}
-
-application {
-   mainClassName = 'com.globallogic.evaluacion.App'
-}
-
-bootJar {
-    mainClassName = 'com.globallogic.evaluacion.test.App'
 }

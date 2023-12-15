@@ -1,7 +1,8 @@
-package model;
+package com.globallogic.evaluacion.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "phones")
+@Table(name = "users")
 public class User {
 	
 	public User() {
@@ -32,7 +33,7 @@ public class User {
 
 	@Id
 	@GeneratedValue
-	private String id;
+	private UUID id;
 
 	private String name;
 	
@@ -40,7 +41,7 @@ public class User {
 	
 	private String password;
 	
-	@OneToMany(mappedBy="users")
+	@OneToMany(mappedBy="user")
 	private List<Phone> phones;
 	
 	private String token;
@@ -53,11 +54,11 @@ public class User {
 	@Column(name = "is_active")
 	private Boolean isActive;
 
-	public String getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 
