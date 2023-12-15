@@ -4,12 +4,14 @@
 package com.globallogic.evaluacion.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.globallogic.evaluacion.model.User;
@@ -29,10 +31,24 @@ public class SecurityController {
 	   
 	@PostMapping("/sign-up")
 	public ResponseEntity<User> signUp(@RequestBody User newUser) {
-		User existUser = null;
 		URI uri = null;
+		List<String> errors = loginSvc.validateSignUp(newUser);
+		
+		if(errors == null || errors.size() == 0) {
+			loginSvc.saveNewUser(newUser);
+			
+		}
 	   
-		return ResponseEntity.created(uri).body(existUser);
+		return ResponseEntity.created(uri).body(newUser);
 	}
+
+
+	@GetMapping("/login")
+	public ResponseEntity<User> login(@RequestParam String token) {
+		URI uri = null;
+		User user = loginSvc.readUserByToken(token);
+		
+		return ResponseEntity.created(uri).body(user);
+	}   
 
 }

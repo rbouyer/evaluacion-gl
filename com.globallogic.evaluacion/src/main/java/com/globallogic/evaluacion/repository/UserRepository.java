@@ -12,4 +12,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
 	User findByEmailIgnoreCase(String email);
 
+	User findByToken(String token);
+
 }
