@@ -1,9 +1,9 @@
 CREATE SCHEMA IF NOT EXISTS evaluacion;
 SET SCHEMA evaluacion;
 CREATE TABLE users (id UUID default random_uuid() PRIMARY KEY, 
-					name VARCHAR(200) NOT NULL, 
+					name VARCHAR(200), 
 					email VARCHAR(200) NOT NULL, 
-					password VARCHAR(20) NOT NULL, 
+					password VARCHAR(100) NOT NULL, 
 					token VARCHAR(100),
 					created DATE NOT NULL,
 					last_login DATE,

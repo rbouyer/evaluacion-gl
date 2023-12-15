@@ -7,6 +7,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.UUID;
 
 @Entity
@@ -40,12 +42,15 @@ public class Phone {
 		@ManyToOne()
 		private User user;
 		
+		@JsonIgnore
 		public UUID getId() {
 			return id;
 		}
+		@JsonIgnore
 		public void setId(UUID id) {
 			this.id = id;
 		}
+
 		public Long getNumber() {
 			return number;
 		}
@@ -64,9 +69,12 @@ public class Phone {
 		public void setContrycode(String contrycode) {
 			this.contrycode = contrycode;
 		}
+
+		@JsonIgnore
 		public User getUser() {
 			return user;
 		}
+		@JsonIgnore
 		public void setUser(User user) {
 			this.user = user;
 		}

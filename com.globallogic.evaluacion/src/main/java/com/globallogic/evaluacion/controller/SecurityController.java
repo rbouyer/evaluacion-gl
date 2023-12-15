@@ -7,6 +7,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,25 +31,25 @@ public class SecurityController {
 	
 	   
 	@PostMapping("/sign-up")
-	public ResponseEntity<User> signUp(@RequestBody User newUser) {
-		URI uri = null;
+	public ResponseEntity<Object> signUp(@RequestBody User newUser) {
 		List<String> errors = loginSvc.validateSignUp(newUser);
+		User createdUser = null;
 		
 		if(errors == null || errors.size() == 0) {
-			loginSvc.saveNewUser(newUser);
+			createdUser = loginSvc.saveNewUser(newUser);
 			
 		}
 	   
-		return ResponseEntity.created(uri).body(newUser);
+		return ResponseEntity.status(HttpStatus.OK).body(createdUser);
 	}
 
 
 	@GetMapping("/login")
-	public ResponseEntity<User> login(@RequestParam String token) {
+	public ResponseEntity<Object> login(@RequestParam String token) {
 		URI uri = null;
 		User user = loginSvc.readUserByToken(token);
 		
-		return ResponseEntity.created(uri).body(user);
+		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}   
 
 }
