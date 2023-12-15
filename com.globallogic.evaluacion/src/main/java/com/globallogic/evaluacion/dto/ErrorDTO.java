@@ -23,7 +23,7 @@ public class ErrorDTO {
 		super();
 		
 		this.error = new ArrayList<ErrorDetailDTO>();
-		this.error.add(new ErrorDetailDTO(codigo, error));
+		this.addErrorDetail(new ErrorDetailDTO(codigo, error));
 	}
 
 
@@ -63,8 +63,8 @@ class ErrorDetailDTO {
 	public ErrorDetailDTO(int codigo, List<String> detail) {
 		super();
 		this.codigo = codigo;
-		if(detail != null && detail.size() > 0) this.detail = String.join("; ", detail);
-		else this.detail = "";
+		this.detail = "";
+		if(detail.size() > 0) this.detail = String.join("; ", detail);
 		this.setTimestamp(LocalDateTime.now());
 	}
 
