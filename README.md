@@ -28,3 +28,7 @@ Consideraciones Generales
 	4. En cada llamada al endpoint /login el token se renueva incluyendo este en el response correspondiente
 	5. Por defecto se activa el usuario al crearlo (isActive)
 	6. Las pruebas unitarias ejecutadas en Eclipse dan sobre un 90% de code coverage
+ 	7. Las caracteristicas propias de java 8 utilizadas en este proyecto:
+    		7.1. Lambda expressions
+      		7.2. Tipo de datos LocalDateTime
+		7.3. forEach
